@@ -208,9 +208,9 @@
       position: absolute;
       inset: 0;
       background:
-        linear-gradient(160deg, rgba(26,20,16,0.60) 55%, rgba(74,82,64,0.45) 100%),
+        linear-gradient(160deg, rgba(26,20,16,0.72) 55%, rgba(74,82,64,0.58) 100%),
         url('/museumhero.webp') center/cover no-repeat;
-      filter: sepia(0.15);
+      filter: sepia(0.22);
     }
     .hero-content {
       position: relative;
@@ -664,6 +664,40 @@
       .stat { padding: 14px 12px; }
       .stat-num { font-size: 1.5rem; }
       .lang-switcher { display: none; }
+      .hero-actions { margin-bottom: 28px; }
+    }
+
+    /* ── BACK TO TOP ── */
+    #back-to-top {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      z-index: 999;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1px solid rgba(199,163,105,0.5);
+      background: rgba(26,20,16,0.88);
+      color: #c7a369;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(10px);
+      transition: opacity 0.3s ease, transform 0.3s ease, background 0.2s ease;
+    }
+    #back-to-top.visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+    #back-to-top:hover {
+      background: rgba(199,163,105,0.2);
+    }
+    @media (max-width: 600px) {
+      #back-to-top { bottom: 20px; right: 20px; }
     }
   </style>
 </head>
@@ -1718,6 +1752,28 @@
     el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
     observer.observe(el);
   });
+</script>
+
+<button id="back-to-top" aria-label="Back to top">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <polyline points="18 15 12 9 6 15"/>
+  </svg>
+</button>
+
+<script>
+  (function () {
+    var btn = document.getElementById('back-to-top');
+    window.addEventListener('scroll', function () {
+      if (window.scrollY > 300) {
+        btn.classList.add('visible');
+      } else {
+        btn.classList.remove('visible');
+      }
+    }, { passive: true });
+    btn.addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  })();
 </script>
 
 </body>
